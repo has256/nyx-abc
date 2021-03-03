@@ -18,6 +18,15 @@ $ git clone https://github.com/has256/nyx
 
 # Go into the repository
 $ cd nyx
+
+# Install deps
+$ go mod download
+
+# Install nyx
+$ go install nyx
+
+# Use nyx
+$ nyx
 ```
 
 ## :checkered_flag: Usage
