@@ -54,21 +54,32 @@ var (
 )
 
 func init() {
+
+	type MyFlag struct {
+		refVerbose  *bool
+		verboseFlag string
+		shortFlag   string
+		hasFlag     bool
+		description string
+	}
+
+	var myFlags []MyFlag
+	myFlags = []MyFlag{
+		{&info, "info", "i", false, "retorna as informacoes de algum(a) docente"},
+		{&email, "email", "e", false, "retorna o e-mail de algum(a) docente"},
+		{&siape, "siape", "s", false, "retorna o SIAPE de algum(a) docente"},
+		{&nome, "nome-completo", "n", false, "retorna o nome completo de algum(a) docente"},
+	}
+
+	for _, flag := range myFlags {
+		docenteCmd.Flags().BoolVarP(
+			flag.refVerbose,
+			flag.verboseFlag,
+			flag.shortFlag,
+			flag.hasFlag,
+			flag.description,
+		)
+	}
+
 	rootCmd.AddCommand(docenteCmd)
-	docenteCmd.Flags().BoolVarP(
-		&info, "info",
-		"i", false, "retorna as informacoes de algum(a) docente",
-	)
-	docenteCmd.Flags().BoolVarP(
-		&email, "email",
-		"e", false, "retorna o e-mail de algum(a) docente",
-	)
-	docenteCmd.Flags().BoolVarP(
-		&siape, "siape",
-		"s", false, "retorna o SIAPE de algum(a) docente",
-	)
-	docenteCmd.Flags().BoolVarP(
-		&nome, "nome-completo",
-		"n", false, "retorna o nome completo de algum(a) docente",
-	)
 }
