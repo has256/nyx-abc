@@ -21,7 +21,7 @@ var (
 	siape      bool
 	docenteCmd = &cobra.Command{
 		Use:   "docente",
-		Short: "Utilitários relacionados à docentes",
+		Short: "Utilitarios relacionados a docentes",
 		Run: func(cmd *cobra.Command, args []string) {
 
 			if len(args) == 0 {
