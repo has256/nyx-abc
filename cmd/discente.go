@@ -23,7 +23,7 @@ var (
 	usuario      bool
 	discenteCmd  = &cobra.Command{
 		Use:   "discente",
-		Short: "Utilitários relacionados à discentes",
+		Short: "Utilitarios relacionados a discentes",
 		Run: func(cmd *cobra.Command, args []string) {
 
 			if len(args) == 0 {
