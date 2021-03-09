@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
+	"strconv"
 
 	"github.com/spf13/cobra"
 )
@@ -32,17 +34,49 @@ type Disciplina []struct {
 }
 
 var (
-	ofertadas     bool
-	ingressantes  bool
-	disciplinaCmd = &cobra.Command{
-		Use:   "disciplina",
-		Short: "Utilitarios relativos a disciplinas",
+	vazia        bool
+	ofertadas    bool
+	altaDemanda  bool
+	ingressantes bool
+	matriculaCmd = &cobra.Command{ //need refactor
+		Use:   "matricula",
+		Short: "Utilitarios relativos a matricula",
 		Run: func(cmd *cobra.Command, args []string) {
 
 			res, _ := http.Get("https://matricula.ufabc.edu.br/cache/todasDisciplinas.js")
 			body, _ := ioutil.ReadAll(res.Body)
 			var todasDisciplinas Disciplina
 			_ = json.Unmarshal([]byte(body[17:len(body)-2]), &todasDisciplinas)
+
+			var contagem map[string]string
+
+			resContagem, _ := http.Get("https://matricula.ufabc.edu.br/cache/contagemMatriculas.js")
+			bodyContagem, _ := ioutil.ReadAll(resContagem.Body)
+			_ = json.Unmarshal([]byte(bodyContagem[19:len(bodyContagem)-2]), &contagem)
+
+			if vazia {
+				for _, disciplina := range todasDisciplinas {
+					req := contagem[strconv.Itoa(disciplina.ID)]
+					requisicoes, _ := strconv.Atoi(req)
+					// need to cover corner cases (ingressantes)
+					if requisicoes < disciplina.Vagas {
+						fmt.Printf("%s ainda tem vagas.\n", disciplina.Nome)
+					}
+				}
+				os.Exit(0)
+			}
+
+			if altaDemanda {
+				fmt.Println("Disciplinas em Alta Demanda")
+				for _, disciplina := range todasDisciplinas {
+					req := contagem[strconv.Itoa(disciplina.ID)]
+					requisicoes, _ := strconv.Atoi(req)
+					if requisicoes >= (15*disciplina.Vagas)/10 {
+						fmt.Printf("%s\n", disciplina.Nome)
+					}
+				}
+				os.Exit(0)
+			}
 
 			if ofertadas {
 				for _, disciplina := range todasDisciplinas {
@@ -75,10 +109,12 @@ func init() {
 	myFlags = []MyFlag{
 		{&ofertadas, "ofertadas", "o", false, "retorna os nomes/vagas das disciplinas ofertadas (consulta real-time ao sistema)"},
 		{&ingressantes, "ingressantes", "i", false, "retorna disciplinas ofertadas de discentes ingressantes"},
+		{&vazia, "vazia", "z", false, "retorna disciplinas com menos vagas que requisições"},
+		{&altaDemanda, "alta-demanda", "a", false, "retorna disciplinas em alta demanda"},
 	}
 
 	for _, flag := range myFlags {
-		disciplinaCmd.Flags().BoolVarP(
+		matriculaCmd.Flags().BoolVarP(
 			flag.refVerbose,
 			flag.verboseFlag,
 			flag.shortFlag,
@@ -87,5 +123,5 @@ func init() {
 		)
 	}
 
-	rootCmd.AddCommand(disciplinaCmd)
+	rootCmd.AddCommand(matriculaCmd)
 }
