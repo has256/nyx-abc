@@ -3,6 +3,7 @@ import click
 
 
 class WebsitesUFABC(Enum):
+
     bcc = 'https://bcc.ufabc.edu.br'
     gradmat = 'https://gradmat.ufabc.edu.br/'
     moodle = 'https://moodle.ufabc.edu.br/'
@@ -15,11 +16,16 @@ class WebsitesUFABC(Enum):
 
 def make_website_subcommand(name, url):
 
-    exec(
-        f'''@site.command()\ndef {name}():\n\t"""Abre o site do(a) {name}"""\n\tclick.launch('{url}')'''
-    )
+    fn_template = f'''@site.command()
+def {name}():
+    """Abre o site do(a) {name}"""
+    click.launch('{url}')
+    '''
 
-    return locals()[f'{name}']
+    exec(fn_template)
+    website_subcommand = locals()[f'{name}']
+
+    return website_subcommand
 
 
 @ click.group('site')
