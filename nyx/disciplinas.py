@@ -1,7 +1,7 @@
 import click
 import requests
-import re
 import pandas as pd
+import json
 
 
 @click.group('disciplinas')
@@ -17,8 +17,7 @@ def ofertadas(ingressantes):
     todas_disciplinas = requests.get(
         'https://matricula.ufabc.edu.br/cache/todasDisciplinas.js')
     disciplinas_ofertadas = todas_disciplinas.content.decode("utf-8")[17:-2]
-    disciplinas_ofertadas = re.sub('null', 'None', disciplinas_ofertadas)
-    disciplinas_ofertadas = eval(disciplinas_ofertadas)
+    disciplinas_ofertadas = json.loads(disciplinas_ofertadas)
     for disciplina in disciplinas_ofertadas:
         if not ingressantes:
             click.echo(disciplina['nome'])

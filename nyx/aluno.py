@@ -31,6 +31,7 @@ def email(ra):
     nome = json.loads(res.text)
     click.echo(nome['email'][0])
 
+
 @aluno.command()
 @click.argument('arg')
 def info(arg):
@@ -38,4 +39,5 @@ def info(arg):
     res = requests.get(
         f'https://sig.ufabc.edu.br/sigaa/APISistemasNTI?funcao=2&valor={arg}')
     nome = json.loads(res.text)
-    click.echo(f"Nome: {nome['fullname']}, username: {nome['username']}, email: {nome['email'][0]}")
+    click.echo(
+        f"Nome: {nome['fullname']}, username: {nome['username']}, email: {nome['email'][0]}")
