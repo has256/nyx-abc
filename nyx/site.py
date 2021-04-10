@@ -1,49 +1,32 @@
+from enum import Enum
 import click
 
 
-@click.group('site')
+class WebsitesUFABC(Enum):
+    bcc = 'https://bcc.ufabc.edu.br'
+    gradmat = 'https://gradmat.ufabc.edu.br/'
+    moodle = 'https://moodle.ufabc.edu.br/'
+    neuro = 'https://neuro.ufabc.edu.br/'
+    prograd = 'https://prograd.ufabc.edu.br/'
+    sigaa = 'https://sig.ufabc.edu.br/sigaa/verTelaLogin.do'
+    tidia = 'https://tidia4.ufabc.edu.br/portal/relogin'
+    ufabc = 'https://www.ufabc.edu.br/'
+
+
+def make_website_subcommand(name, url):
+
+    exec(
+        f'''@site.command()\ndef {name}():\n\t"""Abre o site do(a) {name}"""\n\tclick.launch('{url}')'''
+    )
+
+    return locals()[f'{name}']
+
+
+@ click.group('site')
 def site():
     """Utilitarios de Sites da UFABC"""
     ...
 
 
-@site.command()
-def prograd():
-    """Abre o site da trollgrad"""
-    click.launch('https://prograd.ufabc.edu.br/')
-
-
-@site.command()
-def sigaa():
-    """Abre o SIGAA - o site mais bugado do brasil"""
-    click.launch('https://sig.ufabc.edu.br/sigaa/verTelaLogin.do')
-
-
-@site.command()
-def moodle():
-    """Abre o moodle"""
-    click.launch('https://moodle.ufabc.edu.br/')
-
-
-@site.command()
-def gradmat():
-    """Abre o gradmat"""
-    click.launch('https://gradmat.ufabc.edu.br/')
-
-
-@site.command()
-def ufabc():
-    """Abre o site da ufabc"""
-    click.launch('https://www.ufabc.edu.br/')
-
-
-@site.command()
-def bcc():
-    """Abre o site do bcc"""
-    click.launch('https://bcc.ufabc.edu.br')
-
-
-@site.command()
-def neuro():
-    """Abre o site da neuro"""
-    click.launch('https://neuro.ufabc.edu.br/')
+for website in WebsitesUFABC:
+    make_website_subcommand(website.name, website.value)
