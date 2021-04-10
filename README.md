@@ -1,14 +1,10 @@
 # :umbrella: NYX
 
-> When the sun goes down \ When the sun goes down, you head inside <br>
-> 'Cause the lights don't work \ Yeah, nothing works, they say you don't mind <br>
-> But here comes the night time \ Here comes the night time
-
 ## :wrench: How to run local
 
 1. Certify that you have installed in your machine
 	- [Git](https://git-for-windows.github.io/)
-	- [Go 1.15 >](https://www.python.org/)
+	- [Python 3.8 >](https://www.python.org/)
 
 2. In your CLI, use the following commands!
    
@@ -19,11 +15,11 @@ $ git clone https://github.com/has256/nyx
 # Go into the repository
 $ cd nyx
 
-# Install deps
-$ go mod download
+# Install dependencies
+$ pip3 install -r requirements.txt 
 
 # Install nyx
-$ go install nyx
+$ sudo python3 setup.py install
 
 # Use nyx
 $ nyx
@@ -32,6 +28,16 @@ $ nyx
 ## :checkered_flag: Usage
 
 Now that you have Nyx installed, you can start using Nyx. Here are some of the most common commands you’ll need.
+
+- Open UFABC website
+```bash
+nyx site ufabc
+```
+
+- Return all current subjects
+```bash
+nyx disciplinas ofertadas
+```
 
 ## :hearts: Contributing
 
