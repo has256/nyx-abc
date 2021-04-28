@@ -9,6 +9,7 @@ def ementas(disciplina, bibliografia):
     """Utilitarios de Ementas"""
     ementas = pd.read_excel("https://github.com/EduRenesto/ufabc-manpages/blob/master/disciplinas.xlsx?raw=true")
     query = ementas.query(f'DISCIPLINA.str.contains("{disciplina}")', engine = 'python')
+    click.clear()
     for index, row in query.iterrows():
         click.secho(row.DISCIPLINA + ":", fg='blue')
         click.secho(f"TPI: {row.TPI}, Recomendação: {row.RECOMENDAÇÃO}", fg='red', blink=True)
@@ -16,7 +17,9 @@ def ementas(disciplina, bibliografia):
             click.secho("Bibliografia Sugerida:", fg='green', underline=True)
             click.secho(f"{row['BIBLIOGRAFIA BÁSICA']}\n", fg='green')
         click.secho("Ementa:", fg='green', underline=True)
-        click.secho(f"{row.EMENTA}\n\n", fg='green')
+        click.secho(f"{row.EMENTA}\n", fg='green')
+        click.secho(f"-"*78, fg='yellow')
+
 
 
 
