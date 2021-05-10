@@ -1,5 +1,5 @@
 import click
-from nyx.student.models.student_model import Student
+from nyx.students.models.student_model import Student
 
 
 class StudentParser():

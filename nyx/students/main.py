@@ -1,5 +1,5 @@
-from nyx.student.adapters.http.client import SigaaClient
-from nyx.student.services.student_parser import StudentParser
+from nyx.students.adapters.http.client import SigaaClient
+from nyx.students.services.student_parser import StudentParser
 import click
 
 

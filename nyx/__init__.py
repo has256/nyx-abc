@@ -1,8 +1,8 @@
-from nyx.student.main import aluno
-from nyx.professor.main import docente
-from nyx.website.main import site
-from nyx.disciplinas import disciplinas
-from nyx.ementas import ementas
+from nyx.students.main import aluno
+from nyx.professors.main import docente
+from nyx.websites.main import site
+from nyx.enrollments.main import disciplinas
+from nyx.subjects.main import ementas
 import click
 
 

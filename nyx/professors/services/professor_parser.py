@@ -1,5 +1,5 @@
 import click
-from nyx.professor.models.professor_model import Professor
+from nyx.professors.models.professor_model import Professor
 
 
 class ProfessorParser():
