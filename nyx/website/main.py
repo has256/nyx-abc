@@ -1,22 +1,9 @@
-from enum import Enum
+from nyx.website.models.site_model import WebsitesModel
 import click
-
 
 Url = str
 SubCommand = click.core.Command
 CommandGroup = click.core.Command
-
-
-class WebsitesUFABC(Enum):
-
-    bcc: Url = 'https://bcc.ufabc.edu.br'
-    gradmat: Url = 'https://gradmat.ufabc.edu.br/'
-    moodle: Url = 'https://moodle.ufabc.edu.br/'
-    neuro: Url = 'https://neuro.ufabc.edu.br/'
-    prograd: Url = 'https://prograd.ufabc.edu.br/'
-    sigaa: Url = 'https://sig.ufabc.edu.br/sigaa/verTelaLogin.do'
-    tidia: Url = 'https://tidia4.ufabc.edu.br/portal/relogin'
-    ufabc: Url = 'https://www.ufabc.edu.br/'
 
 
 def make_website_subcommand(name: str, url: Url) -> SubCommand:
@@ -39,5 +26,5 @@ def site() -> CommandGroup:
     ...
 
 
-for website in WebsitesUFABC:
+for website in WebsitesModel:
     make_website_subcommand(website.name, website.value)
