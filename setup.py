@@ -5,6 +5,11 @@ setup(
     version='0.0.1',
     packages=[
         'nyx',
+        'nyx.enrollments',
+        'nyx.enrollments.adapters',
+        'nyx.enrollments.adapters.http',
+        'nyx.enrollments.models',
+        'nyx.enrollments.services',
         'nyx.students',
         'nyx.students.adapters',
         'nyx.students.adapters.http',

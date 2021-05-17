@@ -7,15 +7,15 @@ class Professor:
 
     @property
     def user_id(self):
-        return self.user_id
+        return self._user_id
 
     @property
     def name(self):
-        return self.name
+        return self._name
 
     @property
     def department(self):
-        return self.department
+        return self._department
 
     def __str__(self):
         return f'SIAPE: {self._user_id} | Nome: {self._name} | Departamento: {self._department}'

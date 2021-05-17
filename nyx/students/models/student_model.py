@@ -7,15 +7,15 @@ class Student:
 
     @property
     def name(self):
-        return self.name
+        return self._name
 
     @property
     def user(self):
-        return self.user
+        return self._user
 
     @property
     def email(self):
-        return self.email
+        return self._email
 
     def __str__(self):
         return f'Nome: {self._name} | username: {self._user} | e-mail: {self._email}'

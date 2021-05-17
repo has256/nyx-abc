@@ -1,7 +1,7 @@
 from nyx.students.main import aluno
 from nyx.professors.main import docente
 from nyx.websites.main import site
-from nyx.enrollments.main import disciplinas
+from nyx.enrollments.main import matriculas
 from nyx.subjects.main import ementas
 import click
 
@@ -11,7 +11,7 @@ def cli():
     ...
 
 
-cli.add_command(disciplinas)
+cli.add_command(matriculas)
 cli.add_command(site)
 cli.add_command(aluno)
 cli.add_command(docente)

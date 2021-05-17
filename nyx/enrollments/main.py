@@ -1,106 +1,116 @@
+from nyx.enrollments.adapters.http.current_subjects_client import SubjectsClient
+from nyx.enrollments.adapters.http.enrollments_client import EnrollmentsClient
+from nyx.enrollments.services.subject_parser import SubjectParser
 import click
-import requests
-import pandas as pd
-import json
 import time
 
 
-@click.group('disciplinas')
-def disciplinas():
-    """Utilitarios de Disciplinas"""
+@click.group('matriculas')
+def matriculas():
+    """Utilitarios de Matriculas"""
     ...
 
 
-@disciplinas.command()
+@matriculas.command()
 @click.option('--ingressantes', is_flag=True)
 def ofertadas(ingressantes):
     """Retorna as disciplinas ofertadas do sistema"""
-    todas_disciplinas = requests.get(
-        'https://matricula.ufabc.edu.br/cache/todasDisciplinas.js')
-    disciplinas_ofertadas = todas_disciplinas.content.decode("utf-8")[17:-2]
-    disciplinas_ofertadas = json.loads(disciplinas_ofertadas)
-    for disciplina in disciplinas_ofertadas:
-        if not ingressantes:
-            click.echo(disciplina['nome'])
-            continue
-        if disciplina['vagas_ingressantes'] is not None:
-            click.echo(disciplina['nome'])
+
+    subjects = SubjectsClient.get_all_current_subjects()
+
+    freshman = ingressantes
+
+    for subject in subjects['body']:
+
+        if not freshman:
+            subject_name = SubjectParser.parse_name(subject)
+            click.echo(subject_name)
+        if SubjectParser.parse_slots_freshmen(subject) is not None:
+            subject_name = SubjectParser.parse_name(subject)
+            click.echo(subject_name)
 
 
-@disciplinas.command()
+@matriculas.command()
 def alta_demanda():
     """Retorna as disciplinas de alta demanda do sistema"""
 
-    todas_disciplinas = requests.get(
-        'https://matricula.ufabc.edu.br/cache/todasDisciplinas.js')
-    disciplinas_ofertadas = todas_disciplinas.content.decode("utf-8")[17:-2]
-    disciplinas_ofertadas = json.loads(disciplinas_ofertadas)
+    subjects = SubjectsClient.get_all_current_subjects()
+    enrollments = EnrollmentsClient.get_enrollments_counter()
 
-    contagem_disciplinas = requests.get(
-        'https://matricula.ufabc.edu.br/cache/contagemMatriculas.js')
-    contagem_disciplinas = contagem_disciplinas.content.decode("utf-8")[19:-2]
-    contagem_disciplinas = json.loads(contagem_disciplinas)
+    enrollments_counter = enrollments['body']
+    enrollments_ids = enrollments_counter.keys()
 
-    for disciplina in disciplinas_ofertadas:
-        if str(disciplina['id']) in contagem_disciplinas.keys():
-            requisicoes = contagem_disciplinas[str(disciplina['id'])]
-            if int(requisicoes) >= (15*disciplina['vagas']/10):
-                print(disciplina['nome'])
+    for subject in subjects['body']:
+
+        subject_id = SubjectParser.parse_id(subject)
+        subject_slots = SubjectParser.parse_slots(subject)
+        subject_name = SubjectParser.parse_name(subject)
+
+        if subject_id in enrollments_ids:
+
+            enrollments_count = enrollments_counter[subject_id]
+
+            if enrollments_count >= (15 * subject_slots / 10):
+                click.echo(subject_name)
 
 
-@disciplinas.command()
-def vazia():
+@matriculas.command()
+def vazias():
     """Retorna as disciplinas vazias do sistema"""
 
-    todas_disciplinas = requests.get(
-        'https://matricula.ufabc.edu.br/cache/todasDisciplinas.js')
-    disciplinas_ofertadas = todas_disciplinas.content.decode("utf-8")[17:-2]
-    disciplinas_ofertadas = json.loads(disciplinas_ofertadas)
+    subjects = SubjectsClient.get_all_current_subjects()
+    enrollments = EnrollmentsClient.get_enrollments_counter()
 
-    contagem_disciplinas = requests.get(
-        'https://matricula.ufabc.edu.br/cache/contagemMatriculas.js')
-    contagem_disciplinas = contagem_disciplinas.content.decode("utf-8")[19:-2]
-    contagem_disciplinas = json.loads(contagem_disciplinas)
+    enrollments_counter = enrollments['body']
+    enrollments_ids = enrollments_counter.keys()
 
-    for disciplina in disciplinas_ofertadas:
-        if str(disciplina['id']) in contagem_disciplinas.keys():
-            requisicoes = contagem_disciplinas[str(disciplina['id'])]
-            if int(requisicoes) < (disciplina['vagas']):
-                print(disciplina['nome'])
+    for subject in subjects['body']:
+
+        subject_id = SubjectParser.parse_id(subject)
+        subject_slots = SubjectParser.parse_slots(subject)
+        subject_name = SubjectParser.parse_name(subject)
+
+        if subject_id in enrollments_ids:
+            enrollments_count = enrollments_counter[subject_id]
+            if int(enrollments_count) < subject_slots:
+                click.echo(subject_name)
 
 
-@disciplinas.command()
+@matriculas.command()
 def watch():
     '''Acompanha o sistema de matriculas real-time'''
     while True:
-        old_disciplinas = get_disciplina()
-        time.sleep(5)
-        new_disciplinas = get_disciplina()
-        if old_disciplinas == new_disciplinas:
+        old_response = get_subject_with_enrollments()
+        time.sleep(2)
+        new_response = get_subject_with_enrollments()
+        if old_response == new_response:
             print('Nothing Changed')
         else:
             print('Changed!!!')
-            for i, disciplina in enumerate(new_disciplinas):
-                if disciplina[1] != old_disciplinas[i][1]:
-                    print(f'{disciplina[0]} tem {disciplina[1]} vagas')
+            for i, subject in enumerate(new_response):
+                if subject[1] != old_response[i][1]:
+                    print(f'{subject[0]} tem {subject[1]} vagas')
 
 
-def get_disciplina():
-    todas_disciplinas = requests.get(
-        'https://matricula.ufabc.edu.br/cache/todasDisciplinas.js')
-    disciplinas_ofertadas = todas_disciplinas.content.decode("utf-8")[17:-2]
-    disciplinas_ofertadas = json.loads(disciplinas_ofertadas)
+def get_subject_with_enrollments():
 
-    contagem_disciplinas = requests.get(
-        'https://matricula.ufabc.edu.br/cache/contagemMatriculas.js')
-    contagem_disciplinas = contagem_disciplinas.content.decode("utf-8")[19:-2]
-    contagem_disciplinas = json.loads(contagem_disciplinas)
+    subjects = SubjectsClient.get_all_current_subjects()
+    enrollments = EnrollmentsClient.get_enrollments_counter()
+
+    enrollments_counter = enrollments['body']
+    enrollments_ids = enrollments_counter.keys()
 
     resultado = []
 
-    for disciplina in disciplinas_ofertadas:
-        if str(disciplina['id']) in contagem_disciplinas.keys():
+    for subject in subjects['body']:
+
+        subject_id = SubjectParser.parse_id(subject)
+        subject_slots = SubjectParser.parse_slots(subject)
+        subject_name = SubjectParser.parse_name(subject)
+        enrollments_count = enrollments_counter[subject_id]
+
+        if subject_id in enrollments_ids:
             resultado.append(
-                (disciplina['nome'], disciplina['vagas'] - int(contagem_disciplinas[str(disciplina['id'])])))
+                (subject_name, subject_slots - int(enrollments_count)))
 
     return resultado
