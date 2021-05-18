@@ -9,3 +9,9 @@ class ProfessorParser():
         professor = Professor(response["siape"],
                               response["nome"], response["unidade_exercicio"])
         click.echo(professor)
+
+    @classmethod
+    def parse_name(cls, response):
+        professor = Professor(response["siape"],
+                              response["nome"], response["unidade_exercicio"])
+        return professor.name
