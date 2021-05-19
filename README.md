@@ -1,4 +1,4 @@
-# :umbrella: nyx_abc.ABC
+# :umbrella: NYX.ABC
 
 ## :wrench: How to run local
 
