@@ -1,5 +1,6 @@
 from nyx.enrollments.adapters.http.current_subjects_client import SubjectsClient
 from nyx.enrollments.adapters.http.enrollments_client import EnrollmentsClient
+from nyx.enrollments.adapters.http.summary_client import SummaryClient
 from nyx.enrollments.services.subject_parser import SubjectParser
 import click
 import time
@@ -9,6 +10,14 @@ import time
 def matriculas():
     """Utilitarios de Matriculas"""
     ...
+
+
+@matriculas.command()
+@click.option('--username', prompt=True)
+@click.option('--password', prompt=True, hide_input=True)
+def minha_grade(username, password):
+    """Retorna a grade atual do resumo passando login/senha"""
+    SummaryClient.get_my_subjects(username, password)
 
 
 @matriculas.command()
