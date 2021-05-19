@@ -3,6 +3,7 @@ from nyx.professors.main import docente
 from nyx.websites.main import site
 from nyx.enrollments.main import matriculas
 from nyx.subjects.main import ementas
+from nyx.graduations.main import cursos
 import click
 
 
@@ -16,5 +17,6 @@ cli.add_command(site)
 cli.add_command(aluno)
 cli.add_command(docente)
 cli.add_command(ementas)
+cli.add_command(cursos)
 
 cli()

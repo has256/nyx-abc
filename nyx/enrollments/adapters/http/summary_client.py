@@ -1,4 +1,3 @@
-import click
 import lxml.html
 import requests
 
@@ -41,9 +40,4 @@ class SummaryClient():
 
         subjects_with_schedule = list(zip(subjects, schedule))
 
-        for i, subject in enumerate(subjects_with_schedule):
-            click.echo(f'\n{subject[0]}')
-            for j, time in enumerate(subject[1]):
-                click.echo(f'{time}')
-
-        return page
+        return subjects_with_schedule

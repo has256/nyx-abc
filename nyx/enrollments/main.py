@@ -17,7 +17,11 @@ def matriculas():
 @click.option('--password', prompt=True, hide_input=True)
 def minha_grade(username, password):
     """Retorna a grade atual do resumo passando login/senha"""
-    SummaryClient.get_my_subjects(username, password)
+    subjects_with_schedule = SummaryClient.get_my_subjects(username, password)
+    for i, subject in enumerate(subjects_with_schedule):
+        click.echo(f'\n{subject[0]}')
+        for j, time in enumerate(subject[1]):
+            click.echo(f'{time}')
 
 
 @matriculas.command()
