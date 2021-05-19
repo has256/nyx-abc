@@ -1,5 +1,5 @@
-from nyx.graduations.config.cmcc import BCC, BNC, BM, LMAT
-from nyx.graduations.config.interdisciplinary import BCT
+from nyx_abc.graduations.config.cmcc import BCC, BNC, BM, LMAT
+from nyx_abc.graduations.config.interdisciplinary import BCT
 import click
 import json
 

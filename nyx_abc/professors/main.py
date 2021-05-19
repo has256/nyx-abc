@@ -1,6 +1,6 @@
-from nyx.professors.adapters.http.sigaa_client import SigaaClient
-from nyx.professors.adapters.http.ufabc_client import UfabcClient
-from nyx.professors.services.professor_parser import ProfessorParser
+from nyx_abc.professors.adapters.http.sigaa_client import SigaaClient
+from nyx_abc.professors.adapters.http.ufabc_client import UfabcClient
+from nyx_abc.professors.services.professor_parser import ProfessorParser
 import click
 
 

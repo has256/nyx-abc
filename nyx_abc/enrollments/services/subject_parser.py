@@ -1,5 +1,5 @@
 import click
-from nyx.enrollments.models.subject_model import Subject
+from nyx_abc.enrollments.models.subject_model import Subject
 
 
 class SubjectParser():

@@ -1,7 +1,7 @@
-from nyx.enrollments.adapters.http.current_subjects_client import SubjectsClient
-from nyx.enrollments.adapters.http.enrollments_client import EnrollmentsClient
-from nyx.enrollments.adapters.http.summary_client import SummaryClient
-from nyx.enrollments.services.subject_parser import SubjectParser
+from nyx_abc.enrollments.adapters.http.current_subjects_client import SubjectsClient
+from nyx_abc.enrollments.adapters.http.enrollments_client import EnrollmentsClient
+from nyx_abc.enrollments.adapters.http.summary_client import SummaryClient
+from nyx_abc.enrollments.services.subject_parser import SubjectParser
 import click
 import time
 

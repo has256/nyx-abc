@@ -1,4 +1,4 @@
-# :umbrella: NYX
+# :umbrella: nyx_abc.ABC
 
 ## :wrench: How to run local
 
@@ -10,54 +10,54 @@
    
 ```bash
 # Clone this repository
-$ git clone https://github.com/has256/nyx
+$ git clone https://github.com/has256/nyx_abc
 
 # Go into the repository
-$ cd nyx
+$ cd nyx_abc
 
 # Install dependencies
 $ pip3 install -r requirements.txt 
 
-# Install nyx
+# Install nyx_abc
 $ sudo python3 setup.py install
 
-# Use nyx
-$ nyx
+# Use nyx_abc
+$ nyx-abc
 ```
 
 ## :checkered_flag: Usage
 
-Now that you have Nyx installed, you can start using Nyx. Here are some of the most common commands you’ll need.
+Now that you have nyx_abc installed, you can start using nyx_abc. Here are some of the most common commands you’ll need.
 
 - Show all commands and help messages
 ```bash
-nyx --help
+nyx-abc --help
 ```
 
 - Open UFABC website
 ```bash
-nyx site ufabc
+nyx-abc site ufabc
 ```
 
 - Return all current subjects (and empty/high-demand). Real-time monitoring.
 ```bash
-nyx matriculas ofertadas --ingressantes
-nyx matriculas vazias
-nyx matriculas alta-demanda
-nyx matriculas watch
+nyx-abc matriculas ofertadas --ingressantes
+nyx-abc matriculas vazias
+nyx-abc matriculas alta-demanda
+nyx-abc matriculas watch
 ```
 
 - Return your subjects (and subjects info)
 ```bash
-nyx matriculas minha-grade
-nyx ementas "Bases Matemáticas"
+nyx-abc matriculas minha-grade
+nyx-abc ementas "Bases Matemáticas"
 ```
 
 - Retrieve some professors and students info's
 ```bash
-nyx aluno info abreu.carlos
-nyx professor "Bases Matemáticas"
-nyx docente area-de-pesquisa "username"
+nyx-abc aluno info abreu.carlos
+nyx-abc professor "Bases Matemáticas"
+nyx-abc docente area-de-pesquisa "username"
 ```
 
 ## :hearts: Contributing
@@ -76,4 +76,3 @@ Roadmap for contributing:
 ## :page_facing_up: License
 
 Everything here is licensed by MIT License.
-

@@ -1,4 +1,4 @@
-from nyx.websites.models.site_model import WebsitesModel
+from nyx_abc.websites.models.site_model import WebsitesModel
 import click
 
 Url = str
