@@ -29,14 +29,35 @@ $ nyx
 
 Now that you have Nyx installed, you can start using Nyx. Here are some of the most common commands you’ll need.
 
+- Show all commands and help messages
+```bash
+nyx --help
+```
+
 - Open UFABC website
 ```bash
 nyx site ufabc
 ```
 
-- Return all current subjects
+- Return all current subjects (and empty/high-demand). Real-time monitoring.
 ```bash
-nyx disciplinas ofertadas
+nyx matriculas ofertadas --ingressantes
+nyx matriculas vazias
+nyx matriculas alta-demanda
+nyx matriculas watch
+```
+
+- Return your subjects (and subjects info)
+```bash
+nyx matriculas minha-grade
+nyx ementas "Bases Matemáticas"
+```
+
+- Retrieve some professors and students info's
+```bash
+nyx aluno info abreu.carlos
+nyx professor "Bases Matemáticas"
+nyx docente area-de-pesquisa "username"
 ```
 
 ## :hearts: Contributing
