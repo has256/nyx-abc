@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='nyx-abc',
-    version='0.1.0',
+    version='0.1.1',
     license='MIT',
     author='Carlos EA. Batista',
     author_email='cardu.chmod.777@gmail.com',
