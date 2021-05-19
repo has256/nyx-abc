@@ -7,7 +7,7 @@ setup(
     author='Carlos EA. Batista',
     author_email='cardu.chmod.777@gmail.com',
     url='https://github.com/has256/nyx-abc',
-    download_url='https://github.com/has256/nyx-abc/v_01.tar.gz',
+    download_url='https://github.com/has256/nyx-abc/0.1.0.tar.gz',
     keywords=['nyx', 'CLI APP', 'UFABC'],
     packages=[
         'nyx_abc',
