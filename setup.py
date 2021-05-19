@@ -2,7 +2,13 @@ from setuptools import setup
 
 setup(
     name='nyx',
-    version='0.0.1',
+    version='0.1.0',
+    license='MIT',
+    author='Carlos EA. Batista',
+    author_email='cardu.chmod.777@gmail.com',
+    url='https://github.com/has256/nyx',
+    download_url='https://github.com/has256/nyx/v_01.tar.gz',
+    keywords=['CLI APP', 'UFABC'],
     packages=[
         'nyx',
         'nyx.enrollments',
@@ -34,5 +40,23 @@ setup(
     entry_points={
         'console_scripts':
             ['nyx = nyx:cli']
-    }
+    },
+    install_requires=[
+        'click==7.1.2',
+        'requests==2.25.1',
+        'lxml==4.6.2',
+        'pandas==1.2.3',
+        'xlrd==1.2.0',
+        'unidecode==1.2.0'
+    ],
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Build Tools',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+    ],
 )
