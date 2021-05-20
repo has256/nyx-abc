@@ -1,28 +1,9 @@
 # :umbrella: NYX.ABC
 
-## :wrench: How to run local
-
-1. Certify that you have installed in your machine
-	- [Git](https://git-for-windows.github.io/)
-	- [Python 3.8 >](https://www.python.org/)
-
-2. In your CLI, use the following commands!
+## :computer: How to Install
    
 ```bash
-# Clone this repository
-$ git clone https://github.com/has256/nyx_abc
-
-# Go into the repository
-$ cd nyx_abc
-
-# Install dependencies
-$ pip3 install -r requirements.txt 
-
-# Install nyx_abc
-$ sudo python3 setup.py install
-
-# Use nyx_abc
-$ nyx-abc
+$ pip3 install nyx-abc
 ```
 
 ## :checkered_flag: Usage
@@ -56,8 +37,32 @@ nyx-abc ementas "Bases Matemáticas"
 - Retrieve some professors and students info's
 ```bash
 nyx-abc aluno info abreu.carlos
-nyx-abc professor "Bases Matemáticas"
 nyx-abc docente area-de-pesquisa "username"
+```
+
+## :wrench: How to run local
+
+1. Certify that you have installed in your machine
+	- [Git](https://git-for-windows.github.io/)
+	- [Python 3.8 >](https://www.python.org/)
+
+2. In your CLI, use the following commands!
+   
+```bash
+# Clone this repository
+$ git clone https://github.com/has256/nyx_abc
+
+# Go into the repository
+$ cd nyx_abc
+
+# Install dependencies
+$ pip3 install -r requirements.txt 
+
+# Install nyx_abc
+$ sudo python3 setup.py install
+
+# Use nyx_abc
+$ nyx-abc
 ```
 
 ## :hearts: Contributing
